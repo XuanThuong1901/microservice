@@ -1,0 +1,28 @@
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: bookservice
+          uri: ${POSTS_ROUTE_URI:http://localhost:8001}
+          predicates:
+            - Path=/api/v1/book/**
+        - id: employeeservice
+          uri: ${POSTS_ROUTE_URI:http://localhost:8002}
+          predicates:
+            - Path=/api/v1/employee/**
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
